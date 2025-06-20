@@ -1,0 +1,79 @@
+import { describe, it, expect, beforeEach } from 'vitest';
+import { useConfigurateurStore } from '@/store/configurateurStore';
+
+describe('ConfigurateurStore', () => {
+  beforeEach(() => {
+    // Reset du store avant chaque test
+    useConfigurateurStore.getState().operations = [];
+    useConfigurateurStore.getState().areteSelectionnee = null;
+    useConfigurateurStore.getState().modalOuverte = false;
+  });
+
+  it('devrait initialiser avec les dimensions par défaut', () => {
+    const { dimensions } = useConfigurateurStore.getState();
+    
+    expect(dimensions.longueur).toBe(800);
+    expect(dimensions.largeur).toBe(600);
+    expect(dimensions.epaisseur).toBe(18);
+  });
+
+  it('devrait mettre à jour les dimensions', () => {
+    const { setDimensions } = useConfigurateurStore.getState();
+    
+    setDimensions({ longueur: 1000 });
+    
+    const { dimensions } = useConfigurateurStore.getState();
+    expect(dimensions.longueur).toBe(1000);
+    expect(dimensions.largeur).toBe(600); // Inchangé
+  });
+
+  it('devrait ajouter une opération', () => {
+    const { ajouterOperation } = useConfigurateurStore.getState();
+    
+    ajouterOperation({
+      areteId: 'test-arete',
+      type: 'chanfrein',
+      valeur: 5,
+      angle: 45,
+    });
+    
+    const { operations } = useConfigurateurStore.getState();
+    expect(operations).toHaveLength(1);
+    expect(operations[0].type).toBe('chanfrein');
+    expect(operations[0].valeur).toBe(5);
+  });
+
+  it('devrait supprimer une opération', () => {
+    const { ajouterOperation, supprimerOperation } = useConfigurateurStore.getState();
+    
+    // Ajouter une opération
+    ajouterOperation({
+      areteId: 'test-arete',
+      type: 'conge',
+      valeur: 3,
+    });
+    
+    const { operations: operationsAvant } = useConfigurateurStore.getState();
+    const operationId = operationsAvant[0].id;
+    
+    // Supprimer l'opération
+    supprimerOperation(operationId);
+    
+    const { operations: operationsApres } = useConfigurateurStore.getState();
+    expect(operationsApres).toHaveLength(0);
+  });
+
+  it('devrait gérer la sélection d\'arête', () => {
+    const { selectionnerArete, deselectionnerArete } = useConfigurateurStore.getState();
+    
+    selectionnerArete('arete-123');
+    
+    let { areteSelectionnee } = useConfigurateurStore.getState();
+    expect(areteSelectionnee).toBe('arete-123');
+    
+    deselectionnerArete();
+    
+    ({ areteSelectionnee } = useConfigurateurStore.getState());
+    expect(areteSelectionnee).toBeNull();
+  });
+});
