@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { Mesh, LineSegments, BoxGeometry, BufferGeometry } from 'three';
 import { useConfigurateurStore } from '@/store/configurateurStore';
-import { genererPanneauBois } from '@/brep/panneauboisBREP';
+import { createPanelGeometry } from '@/brep/createPanelGeometry';
 
 /**
  * Props du composant PanneauBois
@@ -31,7 +31,7 @@ export function PanneauBois({ position = [0, 0, 0] }: PanneauBoisProps) {
 
   // Génère la géométrie BREP lorsqu'une dimension change
   useEffect(() => {
-    genererPanneauBois({
+    createPanelGeometry({
       longueur: dimensions.longueur,
       largeur: dimensions.largeur,
       epaisseur: dimensions.epaisseur,
@@ -74,7 +74,6 @@ export function PanneauBois({ position = [0, 0, 0] }: PanneauBoisProps) {
         onPointerLeave={() => setIsHovered(false)}
         geometry={geomBREP ?? undefined}
       >
-        {!geomBREP && <boxGeometry args={[longueur, largeur, epaisseur]} />}
         <meshLambertMaterial
           color={isHovered ? '#d2691e' : '#daa520'}
           transparent
