@@ -48,6 +48,7 @@ export function genererIdArete(debut: Vector3, fin: Vector3): string {
  * Retourne un tableau d'arêtes avec leurs identifiants
  */
 export function extraireAretes(geometry: BufferGeometry) {
+  void geometry;
   // Cette fonction sera étendue dans les versions futures
   // pour une extraction précise des arêtes BREP
   const aretes: Array<{

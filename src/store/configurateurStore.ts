@@ -53,7 +53,7 @@ export interface ConfigurateurState {
  */
 export const useConfigurateurStore = create<ConfigurateurState>()(
   devtools(
-    (set, get) => ({
+    (set) => ({
       // État initial
       dimensions: {
         longueur: 800,

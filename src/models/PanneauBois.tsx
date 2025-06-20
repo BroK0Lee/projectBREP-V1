@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Mesh, EdgesGeometry, LineBasicMaterial, LineSegments, Vector3, BoxGeometry, MeshLambertMaterial } from 'three';
+import { useFrame, type ThreeEvent } from '@react-three/fiber';
+import { Mesh, LineSegments, BoxGeometry } from 'three';
 import { useConfigurateurStore } from '@/store/configurateurStore';
 
 /**
@@ -23,7 +23,6 @@ export function PanneauBois({ position = [0, 0, 0] }: PanneauBoisProps) {
     dimensions, 
     areteSelectionnee, 
     selectionnerArete, 
-    deselectionnerArete,
     ouvrirModal 
   } = useConfigurateurStore();
 
@@ -36,7 +35,7 @@ export function PanneauBois({ position = [0, 0, 0] }: PanneauBoisProps) {
    * Gestionnaire de clic sur le panneau
    * Détecte quelle arête a été cliquée via raycast
    */
-  const handleClick = (event: any) => {
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
     
     // Pour le MVP, on simule la sélection d'une arête
