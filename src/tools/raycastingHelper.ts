@@ -1,4 +1,4 @@
-import { Raycaster, Vector2, Vector3, Camera, Object3D, Intersection } from 'three';
+import { Raycaster, Vector2, Camera, Object3D, Intersection } from 'three';
 
 /**
  * Helper pour la détection d'arêtes par raycasting

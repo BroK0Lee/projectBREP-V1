@@ -1,11 +1,12 @@
-/** The list that stores all of the OpenCascade shapes for rendering.  
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
+/** The list that stores all of the OpenCascade shapes for rendering.
  * Add to this when using imported files or doing custom oc. operations. 
  * @example```sceneShapes.push(externalShapes['myStep.step']);``` */
-var sceneShapes: oc.TopoDS_Shape[];
+let sceneShapes: oc.TopoDS_Shape[];
 
 /** The dictionary that stores all of your imported STEP and IGES files.  Push to sceneShapes to render in the view! 
  * @example```sceneShapes.push(externalShapes['myStep.step']);``` */
-var externalShapes: { [filename: string]: oc.TopoDS_Shape };
+let externalShapes: { [filename: string]: oc.TopoDS_Shape };
 
 /** Type definition for Int */
 type integer = number;
@@ -205,19 +206,19 @@ function Mirror(vector: number[], shape: oc.TopoDS_Shape, keepShape?: boolean): 
 function Scale(scale: number, shape: oc.TopoDS_Shape, keepOriginal?: boolean): oc.TopoDS_Shape;
 
 /** Iterate over all the solids in this shape, calling `callback` on each one. */
-function ForEachSolid(shape: oc.TopoDS_Shape, callback: (index: Number, shell: oc.TopoDS_Solid) => void): void;
+function ForEachSolid(shape: oc.TopoDS_Shape, callback: (index: number, shell: oc.TopoDS_Solid) => void): void;
 /** Gets the indexth solid from this compound shape. */
 function GetSolidFromCompound(shape: oc.TopoDS_Shape, index?:number, keepOriginal?:boolean): oc.TopoDS_Solid;
 /** Gets the indexth wire from this face (or above) shape. */
 function GetWire(shape: oc.TopoDS_Face, index?:number, keepOriginal?:boolean): oc.TopoDS_Wire;
 /** Iterate over all the shells in this shape, calling `callback` on each one. */
-function ForEachShell(shape: oc.TopoDS_Shape, callback: (index: Number, shell: oc.TopoDS_Shell) => void): void;
+function ForEachShell(shape: oc.TopoDS_Shape, callback: (index: number, shell: oc.TopoDS_Shell) => void): void;
 /** Iterate over all the faces in this shape, calling `callback` on each one. */
 function ForEachFace(shape: oc.TopoDS_Shape, callback: (index: number, face: oc.TopoDS_Face) => void): void;
 /** Iterate over all the wires in this shape, calling `callback` on each one. */
 function ForEachWire(shape: oc.TopoDS_Shape, callback: (wire: oc.TopoDS_Wire) => void): void;
 /** Iterate over all the UNIQUE indices and edges in this shape, calling `callback` on each one. */
-function ForEachEdge(shape: oc.TopoDS_Shape, callback: (index: number, edge: oc.TopoDS_Edge) => void): {[edgeHash:number] : Number}[];
+function ForEachEdge(shape: oc.TopoDS_Shape, callback: (index: number, edge: oc.TopoDS_Edge) => void): {[edgeHash:number] : number}[];
 /** Iterate over all the vertices in this shape, calling `callback` on each one. */
 function ForEachVertex(shape: oc.TopoDS_Shape, callback: (vertex: oc.TopoDS_Vertex) => void): void;
 /** Attempt to Fillet all selected edge indices in "edgeList" with a radius. 
